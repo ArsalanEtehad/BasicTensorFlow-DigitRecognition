@@ -14,6 +14,7 @@ you create in part II.
 
 import tensorflow as tf
 
+
 """ PART I """
 
 
@@ -39,18 +40,22 @@ def add_consts_with_placeholder():
     following order:
     (the resulting tensor, the constructed placeholder).
     """
-
-    return af, c3
+    c1 = tf.constant(5.1)
+    c2 = tf.constant(1.0)
+    ph1 = tf.placeholder(tf.float32)
+    c_result = tf.add(c1, c2)
+    af = tf.add(c_result, ph1)
+    return tf.tuple([af, ph1])
 
 
 def my_relu(in_value):
+    #in_value is the output of the nueron which my_relu decieds whether it has to propogate forward or not
     """
     Implement a ReLU activation function that takes a scalar tf.placeholder as input
     and returns the appropriate output. For more information see the assignment spec.
     """
-
+    out_value = tf.maximum(0,in_value)
     return out_value
-
 
 def my_perceptron(x):
     """
