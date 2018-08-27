@@ -54,8 +54,7 @@ def my_relu(in_value):
     Implement a ReLU activation function that takes a scalar tf.placeholder as input
     and returns the appropriate output. For more information see the assignment spec.
     """
-    out_value = tf.maximum(0,in_value)
-    return out_value
+    return tf.maximum(0, in_value)
 
 def my_perceptron(x):
     """
@@ -77,10 +76,22 @@ def my_perceptron(x):
         init = tf.global_variables_initializer()
         self.sess.run(init)
         # tests here
-
     """
+    num_input = len(x)
+    num_unit = tf.float32(1.0)  # Single Perceptron
+    num_output = tf.float32(1)
 
-    return i, out
+    # placeholders for input n output
+    px = tf.placeholder(dtype=tf.float32, shape=[None, num_input])
+
+    # Weight and Bias
+    weight = tf.Variable(tf.get_variable([num_input, num_unit]),-1.0 , 1.0)
+    bias = tf.Variable(tf.random_normal([num_unit]), -1.0 , 1.0)
+
+    # ActivationFunction( X * Weight + Bias)
+    output = my_relu(tf.add(tf.matmul(px, weight), bias))
+
+    return tf.tuple([px, output])
 
 
 """ PART II """
