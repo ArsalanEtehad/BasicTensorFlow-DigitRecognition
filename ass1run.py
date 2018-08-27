@@ -37,17 +37,16 @@ def my_relu(in_value):
     Implement a ReLU activation function that takes a scalar tf.placeholder as input
     and returns the appropriate output. For more information see the assignment spec.
     """
-
     max = tf.maximum(in_value, 0.0)
     return max
-
 
 sess = tf.Session()
 a=tf.placeholder(tf.float32,shape=[])
 
+size = tf.float32(4)
+test = tf.placeholder(tf.float32,shape=[size])
+
 m = my_relu(a)
-print(sess.run(m, feed_dict={a:5.0}))
+print(sess.run(test, feed_dict={test:[5.0,2.0,3.0,5.1]}))
 
-
-#kh = my_relu(a)
 

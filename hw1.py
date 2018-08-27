@@ -80,10 +80,11 @@ def my_perceptron(x):
         self.sess.run(init)
         # tests here
     """
-    num_input = len(x)
+    num_input = x
     num_unit = tf.float32(1.0)  # Single Perceptron
+
     # placeholders for input n output
-    px = tf.placeholder(dtype=tf.float32, shape=[None, num_input])
+    px = tf.placeholder(dtype=tf.float32, shape=[num_input])
 
     # Weight and Bias
     weight = tf.Variable(tf.get_variable([num_input, num_unit]),-1.0 , 1.0)
@@ -92,7 +93,7 @@ def my_perceptron(x):
     # ActivationFunction( X * Weight + Bias)
     output = my_relu(tf.add(tf.matmul(px, weight), bias))
 
-    return tf.tuple([px, output])
+    return px, output
 
 
 """ PART II """
