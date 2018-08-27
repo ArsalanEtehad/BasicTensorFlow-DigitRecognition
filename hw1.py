@@ -44,8 +44,9 @@ def add_consts_with_placeholder():
     c2 = tf.constant(1.0)
     ph1 = tf.placeholder(tf.float32)
     c_result = tf.add(c1, c2)
-    af = tf.add(c_result, ph1)
-    return tf.tuple([af, ph1])
+    result = tf.add(c_result, ph1)
+
+    return result, ph1
 
 
 def my_relu(in_value):
@@ -73,14 +74,13 @@ def my_perceptron(x):
 
     Note: The code will be tested using the following init scheme
         # graph def (your code called)
-        init = tf.global_variables_initializer()
+        init = tf.global_va
+        riables_initializer()
         self.sess.run(init)
         # tests here
     """
     num_input = len(x)
     num_unit = tf.float32(1.0)  # Single Perceptron
-    num_output = tf.float32(1)
-
     # placeholders for input n output
     px = tf.placeholder(dtype=tf.float32, shape=[None, num_input])
 
