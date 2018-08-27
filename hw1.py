@@ -55,7 +55,8 @@ def my_relu(in_value):
     Implement a ReLU activation function that takes a scalar tf.placeholder as input
     and returns the appropriate output. For more information see the assignment spec.
     """
-    return tf.maximum(0, in_value)
+    max = tf.maximum(in_value, 0.0)
+    return max
 
 def my_perceptron(x):
     """

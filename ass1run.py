@@ -1,5 +1,20 @@
 import tensorflow as tf
 import numpy as np
+
+def add_consts():
+    """
+    EXAMPLE:
+    Construct a TensorFlow graph that declares 3 constants, 5.1, 1.0 and 5.9
+    and adds these together, returning the resulting tensor.
+    """
+    c1 = tf.constant(5.1)
+    c2 = tf.constant(1.0)
+    c3 = tf.constant(5.9)
+    an1 = tf.add(c1, c2)
+    an2 = tf.add(an1, c3)
+    return an2
+
+
 def add_consts_with_placeholder():
     """
     Construct a TensorFlow graph that constructs 2 constants, 5.1, 1.0 and one
@@ -10,17 +25,29 @@ def add_consts_with_placeholder():
     """
     c1 = tf.constant(5.1)
     c2 = tf.constant(1.0)
-    ph1 = tf.placeholder(tf.float32, shape=[], name="init")
+    ph1 = tf.placeholder(tf.float32)
     c_result = tf.add(c1, c2)
     result = tf.add(c_result, ph1)
+
     return result, ph1
-    #return tf.tuple([result, ph1])
+
+def my_relu(in_value):
+    #in_value is the output of the nueron which my_relu decieds whether it has to propogate forward or not
+    """
+    Implement a ReLU activation function that takes a scalar tf.placeholder as input
+    and returns the appropriate output. For more information see the assignment spec.
+    """
+
+    max = tf.maximum(in_value, 0.0)
+    return max
+
 
 sess = tf.Session()
+a=tf.placeholder(tf.float32,shape=[])
 
-#sess.run(tf.global_variables_initializer())
+m = my_relu(a)
+print(sess.run(m, feed_dict={a:5.0}))
 
-[a, b] = add_consts_with_placeholder()
 
-print(sess.run(a, feed_dict={b: 5.0}))
+#kh = my_relu(a)
 
