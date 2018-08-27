@@ -40,13 +40,20 @@ def my_relu(in_value):
     max = tf.maximum(in_value, 0.0)
     return max
 
+###############
 sess = tf.Session()
-a=tf.placeholder(tf.float32,shape=[])
 
-size = tf.float32(4)
-test = tf.placeholder(tf.float32,shape=[size])
+size = 4
+num_input = 4
+test = tf.placeholder(tf.float32, shape=[size])
+mata = tf.placeholder(tf.float32, shape=[num_input])
 
-m = my_relu(a)
-print(sess.run(test, feed_dict={test:[5.0,2.0,3.0,5.1]}))
+res = tf.matmul(test,mata)
+
+print(sess.run(test, feed_dict={test:[1.0,2.0,3.0,4.0]}))
+print(sess.run(mata, feed_dict={mata:[4.0,3.0,2.0,1.0]}))
+
+
+
 
 

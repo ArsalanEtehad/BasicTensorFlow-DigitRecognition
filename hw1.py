@@ -81,19 +81,21 @@ def my_perceptron(x):
         # tests here
     """
     num_input = x
-    num_unit = tf.float32(1.0)  # Single Perceptron
+    num_unit = 1  # Single Perceptron
 
     # placeholders for input n output
     px = tf.placeholder(dtype=tf.float32, shape=[num_input])
 
-    # Weight and Bias
-    weight = tf.Variable(tf.get_variable([num_input, num_unit]),-1.0 , 1.0)
-    bias = tf.Variable(tf.random_normal([num_unit]), -1.0 , 1.0)
+    # Weight
+    weight = tf.Variable(tf.random_uniform( [num_input, num_unit], 1.0, 1.0 ))
+
+    # Bias
+    bias = tf.Variable(tf.zeros([num_unit]), name="Bias")
 
     # ActivationFunction( X * Weight + Bias)
-    output = my_relu(tf.add(tf.matmul(px, weight), bias))
+    L = my_relu(tf.add(tf.matmul(px, weight), bias))
 
-    return px, output
+    return px, L
 
 
 """ PART II """
