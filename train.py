@@ -90,7 +90,7 @@ def train(sess, mnist, n_training_epochs, batch_size,
         train_duration = round(time.time() - train_start, 2)
 
         # Output to montior training
-        print('Epoch {0}, Training Loss: {1}, Test accuracy: {2}, \
+        printprint('Epoch {0}, Training Loss: {1}, Test accuracy: {2}, \
                 time: {3}s, total time: {4}s'.format(i, ave_train_loss,
                                                      test_accuracy, epoch_duration,
                                                      train_duration))

@@ -52,7 +52,7 @@ weight = tf.placeholder(tf.float32, shape=[num_input,1])
 
 res = tf.matmul(weight,mata)
 
-print(sess.run(weight, feed_dict={weight:[1.0],[1.0], [1.0], [1.0] }))
+#print(sess.run(weight, feed_dict={ weight:[1.0],[1.0], [1.0], [1.0]}))
 print(sess.run(mata, feed_dict={mata:[4.0,3.0,2.0,1.0]}))
 
 

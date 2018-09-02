@@ -33,7 +33,7 @@ def add_consts():
 
 
 def add_consts_with_placeholder():
-    """ 
+    """
     Construct a TensorFlow graph that constructs 2 constants, 5.1, 1.0 and one
     TensorFlow placeholder of type tf.float32 that accepts a scalar input,
     and adds these three values together, returning as a tuple, and in the
@@ -42,21 +42,20 @@ def add_consts_with_placeholder():
     """
     c1 = tf.constant(5.1)
     c2 = tf.constant(1.0)
-    ph1 = tf.placeholder(tf.float32)
-    c_result = tf.add(c1, c2)
-    result = tf.add(c_result, ph1)
-
-    return result, ph1
+    c3 = tf.placeholder(tf.float32)
+    af = tf.add(c1,c2)
+    af = tf.add(af,c3)
+    return af, c3
 
 
 def my_relu(in_value):
-    #in_value is the output of the nueron which my_relu decieds whether it has to propogate forward or not
     """
     Implement a ReLU activation function that takes a scalar tf.placeholder as input
     and returns the appropriate output. For more information see the assignment spec.
     """
-    max = tf.maximum(in_value, 0.0)
-    return max
+    out_value = tf.maximum(0.0, in_value)
+    return out_value
+
 
 def my_perceptron(x):
     """
@@ -75,28 +74,18 @@ def my_perceptron(x):
 
     Note: The code will be tested using the following init scheme
         # graph def (your code called)
-        init = tf.global_va
-        riables_initializer()
+        init = tf.global_variables_initializer()
         self.sess.run(init)
         # tests here
+
     """
-    num_input = x
-    num_unit = 1  # Single Perceptron
-
-    # placeholders for input n output
-    px = tf.placeholder(tf.float32, shape=[num_input])
-
-    # Weight
-    weight = tf.Variable(tf.random_uniform( [num_input, num_unit], 1.0, 1.0 ))
-
-    # Bias
-    #bias = tf.Variable(tf.zeros([num_unit]), name="Bias")
-
-    # ActivationFunction( X * Weight + Bias)
-    L = my_relu(tf.add(tf.matmul(px, weight)))
-
-    return px, L
-
+    i = tf.placeholder(shape=[x], dtype=tf.float32) #placeholder with shape of x [4 elements]
+    v = tf.get_variable("v", shape=[x], initializer=tf.constant_initializer(1.0))  #variable with shape of x initizialed all as 1s
+    mul = tf.multiply(i, v) #all elements of placeholder times variable items --NOT COMPLETE YET
+    iw = tf.assign(v, mul)  #assign the change to the variable.
+    ws = tf.reduce_sum(iw)  #sum of all elements of the variable list
+    out = my_relu(ws)       #activation function on the weight sum
+    return out, i
 
 """ PART II """
 fc_count = 0  # count of fully connected layers. Do not remove.
