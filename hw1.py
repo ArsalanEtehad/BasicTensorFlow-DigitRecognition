@@ -77,15 +77,14 @@ def my_perceptron(x):
         init = tf.global_variables_initializer()
         self.sess.run(init)
         # tests here
-
     """
     i = tf.placeholder(shape=[x], dtype=tf.float32) #placeholder with shape of x [4 elements]
-    v = tf.get_variable("v", shape=[x], initializer=tf.constant_initializer(1.0))  #variable with shape of x initizialed all as 1s
-    mul = tf.multiply(i, v) #all elements of placeholder times variable items --NOT COMPLETE YET
-    iw = tf.assign(v, mul)  #assign the change to the variable.
+    w = tf.get_variable("w", shape=[x], initializer=tf.constant_initializer(1.0))  #variable with shape of x initizialed all as 1s
+    mul = tf.multiply(i, w) #all elements of placeholder times variable items --NOT COMPLETE YET
+    iw = tf.assign(w, mul)  #assign the change to the variable.
     ws = tf.reduce_sum(iw)  #sum of all elements of the variable list
     out = my_relu(ws)       #activation function on the weight sum
-    return out, i
+    return i, out
 
 """ PART II """
 fc_count = 0  # count of fully connected layers. Do not remove.
@@ -120,8 +119,21 @@ def onelayer(X, Y, layersize=10):
         batch_xentropy: The cross-entropy loss for each image in the batch
         batch_loss: The average cross-entropy loss of the batch
     """
+    # Set model weights
+    w = tf.Variable(tf.zeros([784, 10]))
+    b = tf.Variable(tf.zeros([10]))
+
+    logits = tf.matmul(X, w) + b
+
+    preds = tf.nn.softmax(logits)
+
+    batch_xentropy = tf.reduce_sum(Y * tf.log(preds), reduction_indices=1)
+
+    batch_loss = tf.reduce_mean(-batch_xentropy)
 
     return w, b, logits, preds, batch_xentropy, batch_loss
+
+
 
 
 def twolayer(X, Y, hiddensize=30, outputsize=10):
@@ -173,7 +185,6 @@ def convnet(X, Y, convlayer_sizes=[10, 10], \
     """
 
     return conv1, conv2, w, b, logits, preds, batch_xentropy, batch_loss
-
 
 def train_step(sess, batch, X, Y, train_op, loss_op, summaries_op):
     """

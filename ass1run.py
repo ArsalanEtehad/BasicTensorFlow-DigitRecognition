@@ -41,6 +41,41 @@ def my_perceptron(x):
 
     return px, L
 
+def input_placeholder():
+    return tf.placeholder(dtype=tf.float32, shape=[None, 784],
+                          name="image_input")
+
+
+def target_placeholder():
+    return tf.placeholder(dtype=tf.float32, shape=[None, 10],
+                          name="image_target_onehot")
+
+
+
+
+def onelayer(X, Y, layersize=10):
+    """
+    Create a Tensorflow model for logistic regression (i.e. single layer NN)
+
+    :param X: The input placeholder for images from the MNIST dataset
+    :param Y: The output placeholder for image labels
+    :return: The following variables should be returned  (variables in the
+    python sense, not in the Tensorflow sense, although some may be
+    Tensorflow variables). They must be returned in the following order.
+        w: Connection weights
+        b: Biases
+        logits: The input to the activation function
+        preds: The output of the activation function (a probability
+        distribution over the 10 digits)
+        batch_xentropy: The cross-entropy loss for each image in the batch
+        batch_loss: The average cross-entropy loss of the batch
+    """
+
+    return w, b, logits, preds, batch_xentropy, batch_loss
+
+
+
+
 ###############
 sess = tf.Session()
 

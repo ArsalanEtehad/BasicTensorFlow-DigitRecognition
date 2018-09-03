@@ -61,18 +61,17 @@ def my_perceptron(x):
 
     """
 
-    i = tf.placeholder(shape=[x], dtype=tf.float32)
-    v = tf.get_variable("v", shape=[x], initializer=tf.constant_initializer(1.0))
-    mul = tf.multiply(i, v)
-    iw = tf.assign(v, mul)
-
-    ws = tf.reduce_sum(iw)
-    out = my_relu(ws)
+    i = tf.placeholder(shape=[x], dtype=tf.float32) #placeholder with shape of x [4 elements]
+    w = tf.get_variable("w", shape=[x], initializer=tf.constant_initializer(1.0))  #variable with shape of x initizialed all as 1s
+    mul = tf.multiply(i, w) #all elements of placeholder times variable items --NOT COMPLETE YET
+    iw = tf.assign(w, mul)  #assign the change to the variable.
+    ws = tf.reduce_sum(iw)  #sum of all elements of the variable list
+    out = my_relu(ws)       #activation function on the weight sum
 
     init = tf.initialize_all_variables()
     sess.run(init)
 
-    return out, i
+    return i, out
 
 
 
@@ -88,5 +87,10 @@ def my_perceptron(x):
 #i, ws, out = my_perceptron(5)
 #print(sess.run(out, feed_dict={i: [1.2, -1.3, 1.4, 1.5, 1.6]}))
 
-out, i = my_perceptron(4)
-print(sess.run(out, feed_dict={i:[0,-1,-2,1]}))
+#out, i = my_perceptron(4)
+#print(sess.run(out, feed_dict={i:[0,1,-1,1]}))
+
+inputs, out = my_perceptron(4)
+
+print(sess.run(out, feed_dict={inputs:[-1,2,-3,4]}))
+
